@@ -1,8 +1,9 @@
 import React from 'react'
 import {FaSignInAlt,FaShoppingCart,FaUserPlus} from 'react-icons/fa'
 import {NavLink} from "react-router-dom";
-
+import { useSelector } from 'react-redux';
 function Navbar() {
+  const state=useSelector((state)=>state.handleCart)
   return (
     <div>
     <nav className="navbar navbar-expand-lg bg-white py-3 shadow-sm">
@@ -32,7 +33,7 @@ function Navbar() {
      <NavLink to='/register' className='btn btn-outline-dark ms-2'>
      <FaUserPlus className='me-1 '/>Register</NavLink>
      <NavLink to='/cart' className='btn btn-outline-dark ms-2'>
-     <FaShoppingCart className='me-1'/>Cart(0)</NavLink>
+     <FaShoppingCart className='me-1'/>Cart({state.length})</NavLink>
         </div>
       </div>
     </div>

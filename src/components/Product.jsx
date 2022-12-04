@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
+import {useSelector,useDispatch} from 'react-redux';
+import { addCart,deleteCart } from "../redux/action";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import {FaStar} from 'react-icons/fa';
@@ -7,6 +9,11 @@ export default function Product() {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const dispatch=useDispatch();
+  const addProduct=(product)=>{
+    dispatch(addCart(product));
+  }
   useEffect(() => { 
     console.log(`https://fakestoreapi.com/products/${id}`,"sree")
    getProduct()
@@ -26,7 +33,7 @@ export default function Product() {
   const Loading = () => {
     return(
       <div>
-      <div className="col-md-6">
+      <div className="col-md-6" style={{lineHeight:2}}>
       <Skeleton height={400}/>
       </div>
       <div className="col-md-6" style={{lineHeight:2}}>
@@ -52,7 +59,7 @@ export default function Product() {
             width="400px"
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6" style={{lineHeight:2}}>
           <h4 className="text-uppercase text-black-50">{product.category}</h4>
           <h1 className="display-5">{product.title}</h1>
           <p className="lead fw-bolder">
@@ -61,7 +68,7 @@ export default function Product() {
           </p>
           <h3 className="display-6 fw-bold my-4">$ {product.price}</h3>
           <p className="lead ">{product.description}</p>
-          <button className="btn btn-outline-dark px-4 py-2">Add to Cart</button>
+          <button className="btn btn-outline-dark px-4 py-2" onClick={()=>addProduct(product)}>Add to Cart</button>
           <NavLink to='/cart' className="btn btn-dark ms-2 px-3 py-2">Go to Cart</NavLink>
         </div>
       </div>
